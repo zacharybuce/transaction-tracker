@@ -1,13 +1,21 @@
-import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
+import { AiFillCaretUp, AiFillCaretDown } from 'react-icons/ai'
+
+import { cn, format } from '@renderer/utils'
 
 const MonthPreview = ({
   isActive = false,
   monthName,
   year,
   className,
+  totalSaved,
   ...props
-}: { monthName: string; year: string; isActive?: boolean } & ComponentProps<'div'>) => {
+}: {
+  monthName: string
+  year: string
+  isActive?: boolean
+  totalSaved: number
+} & ComponentProps<'div'>) => {
   return (
     <div
       className={cn(
@@ -21,7 +29,14 @@ const MonthPreview = ({
       {...props}
     >
       <h3 className="mb-1 font-bold truncate">{`${monthName} ${year}`}</h3>
-      <span className="inline-block w-full mb-2 text-xs font-light text-left">{'subtext'}</span>
+      <div
+        className={`inline-block w-full mb-2 text-xs font-light text-left ${totalSaved > 0 ? 'text-green-300' : 'text-red-300'}`}
+      >
+        <div className={`float-left w-[7%] flex flex-row items-center h-[1rem]`}>
+          {totalSaved > 0 ? <AiFillCaretUp /> : <AiFillCaretDown />}
+        </div>
+        <div className="float-right w-[93%]">{format(totalSaved)}</div>
+      </div>
     </div>
   )
 }

@@ -3,6 +3,11 @@ import { Month, ProcessCsvResponse, Transaction } from '@shared/types'
 import clsx, { ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'EUR'
+})
+
 export const cn = (...args: ClassValue[]) => {
   return twMerge(clsx(...args))
 }
@@ -46,4 +51,14 @@ export const addProcessedCsvResponse = async (res: ProcessCsvResponse) => {
   }
 
   return true
+}
+
+export const getTransactions = async (ids: number[]) => {
+  const transactions = await db.transactions.bulkGet(ids)
+
+  return transactions
+}
+
+export const format = (amount: number) => {
+  return formatter.format(amount)
 }

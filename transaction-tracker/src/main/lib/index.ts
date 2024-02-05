@@ -40,7 +40,7 @@ const getMonth = (date: string) => {
 const getYear = (date: string) => {
   const values = date.split('/')
 
-  return values[2]
+  return (parseInt(values[2], 10) + 2000).toString()
 }
 
 const readCsvFile = (path: string, month: string, year: string) => {
@@ -48,7 +48,6 @@ const readCsvFile = (path: string, month: string, year: string) => {
 
   return new Promise<Record<string, string>[]>((resolve, reject) => {
     const transactions: Record<string, string>[] = []
-
     stream
       .pipe(csv())
       .on('data', (row: Record<string, string>) => {
@@ -94,11 +93,9 @@ export const processCsv: ProcessCsv = async (path, month, year) => {
 
   const parsedTransactions = parseTransactions(transactions)
 
-  const d = new Date()
-
   return {
     monthName: month,
-    year: d.getFullYear().toString(),
+    year,
     parsedTransactions
   } as ProcessCsvResponse
 }

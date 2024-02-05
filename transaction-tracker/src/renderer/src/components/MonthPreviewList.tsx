@@ -5,7 +5,7 @@ import MonthPreview from './MonthPreview'
 import { useTrackerProvider } from '@renderer/providers/TrackerProvider'
 
 const MonthPreviewList = ({ className, ...props }: ComponentProps<'ul'>) => {
-  const { monthInfo, currentlySelectedMonth } = useTrackerProvider()
+  const { monthInfo, currentlySelectedMonth, setCurrentlySelectedMonth } = useTrackerProvider()
 
   if (!monthInfo.length) {
     return (
@@ -19,11 +19,12 @@ const MonthPreviewList = ({ className, ...props }: ComponentProps<'ul'>) => {
     <ul className={className} {...props}>
       {monthInfo.map((month, index) => (
         <MonthPreview
-          key={index}
+          key={`${index} + ${month}`}
           isActive={currentlySelectedMonth === index}
-          onClick={() => null}
+          onClick={() => setCurrentlySelectedMonth(index)}
           monthName={month.monthName}
           year={month.year}
+          totalSaved={month.totalSaved}
         />
       ))}
     </ul>

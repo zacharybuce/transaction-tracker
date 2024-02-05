@@ -105,7 +105,7 @@ const FilePreview = ({ file, handleDeleteFile }: { file: File; handleDeleteFile:
 
 const getCurrentMonthAndYear = () => {
   const d = new Date()
-  const prevMonth = d.getMonth() - 1 === 0 ? 12 : d.getMonth() - 1
+  const prevMonth = d.getMonth() - 1 < 0 ? 12 : d.getMonth() - 1
 
   return { month: MONTHS[prevMonth], year: d.getFullYear().toString() }
 }
@@ -151,6 +151,7 @@ const AddTransactionModal = () => {
   }, [])
 
   const handleConfirm = useCallback(async () => {
+    console.log({ monthDropdownValue, yearDropdownValue })
     if (file && monthDropdownValue && yearDropdownValue) {
       setLoading(true)
       //@ts-expect-error path exists on file type

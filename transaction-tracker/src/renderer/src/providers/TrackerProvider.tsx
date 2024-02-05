@@ -1,4 +1,6 @@
+import { db } from '@shared/db'
 import { Month } from '@shared/types'
+import { useLiveQuery } from 'dexie-react-hooks'
 import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react'
 
 interface TrackerProviderContextProps {
@@ -7,13 +9,12 @@ interface TrackerProviderContextProps {
   showAddTransactionsModal: boolean
   setShowAddTransactionsModal: (input: boolean) => void
   monthInfo: Month[]
-  setMonthInfo: (input: Month[]) => void
 }
 
 const TrackerProviderContext = createContext<TrackerProviderContextProps | undefined>(undefined)
 
 export default function TrackerProvider({ children }: PropsWithChildren) {
-  const [monthInfo, setMonthInfo] = useState<Month[]>([])
+  const monthInfo = useLiveQuery(() => db.months.toArray())
 
   const [currentlySelectedMonth, setCurrentlySelectedMonth] = useState<number>(0)
   const [showAddTransactionsModal, setShowAddTransactionsModal] = useState(false)
@@ -24,8 +25,7 @@ export default function TrackerProvider({ children }: PropsWithChildren) {
       setCurrentlySelectedMonth,
       showAddTransactionsModal,
       setShowAddTransactionsModal,
-      monthInfo,
-      setMonthInfo
+      monthInfo: monthInfo || []
     }),
     [currentlySelectedMonth, monthInfo, showAddTransactionsModal]
   )
