@@ -1,8 +1,9 @@
-import { ElectronAPI } from '@electron-toolkit/preload'
+import { ProcessCsv } from '@shared/types'
 
 declare global {
   interface Window {
-    electron: ElectronAPI
-    api: unknown
+    context: {
+      processCsv: ProcessCsv
+    }
   }
 }
