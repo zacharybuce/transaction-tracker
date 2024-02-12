@@ -8,16 +8,21 @@ interface TrackerProviderContextProps {
   setCurrentlySelectedMonth: (input: number) => void
   showAddTransactionsModal: boolean
   setShowAddTransactionsModal: (input: boolean) => void
+  showUploadCsvModal: boolean
+  setShowUploadCsvModal: (input: boolean) => void
   monthInfo: Month[]
 }
 
 const TrackerProviderContext = createContext<TrackerProviderContextProps | undefined>(undefined)
 
 export default function TrackerProvider({ children }: PropsWithChildren) {
-  const monthInfo = useLiveQuery(() => db.months.toArray())
+  const monthInfo = useLiveQuery(() => {
+    return db.months.toArray()
+  })
 
   const [currentlySelectedMonth, setCurrentlySelectedMonth] = useState<number>(0)
   const [showAddTransactionsModal, setShowAddTransactionsModal] = useState(false)
+  const [showUploadCsvModal, setShowUploadCsvModal] = useState(false)
 
   const value = useMemo(
     () => ({
@@ -25,9 +30,11 @@ export default function TrackerProvider({ children }: PropsWithChildren) {
       setCurrentlySelectedMonth,
       showAddTransactionsModal,
       setShowAddTransactionsModal,
-      monthInfo: monthInfo || []
+      monthInfo: monthInfo || [],
+      showUploadCsvModal,
+      setShowUploadCsvModal
     }),
-    [currentlySelectedMonth, monthInfo, showAddTransactionsModal]
+    [currentlySelectedMonth, monthInfo, showAddTransactionsModal, showUploadCsvModal]
   )
 
   return <TrackerProviderContext.Provider value={value}>{children}</TrackerProviderContext.Provider>

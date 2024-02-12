@@ -1,5 +1,5 @@
 export type TranasctionType = 'Debit' | 'Credit'
-export type TransactionCategory = ''
+export type Bank = 'AIB' | 'Revolut'
 export type MonthName =
   | 'January'
   | 'February'
@@ -15,7 +15,7 @@ export type MonthName =
   | 'December'
 
 export interface Transaction {
-  id?: string
+  id?: number
   date: string
   title: string
   amount: number
@@ -42,5 +42,13 @@ export type ProcessCsvResponse = {
 export type ProcessCsv = (
   path: string,
   month: MonthName,
-  year: string
+  year: string,
+  bank: Bank
 ) => Promise<ProcessCsvResponse>
+
+export type Expense = {
+  id?: string
+  category?: string
+  isPersonal?: boolean
+  nickname?: string
+}

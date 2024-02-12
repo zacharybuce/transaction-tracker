@@ -19,3 +19,7 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+select {
+  -webkit-appearance: none;
+}

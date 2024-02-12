@@ -1,6 +1,7 @@
 import { format } from '@renderer/utils'
 import { Transaction } from '@shared/types'
 import { useMemo } from 'react'
+import AddTransactionButton from './AddTransactionButton'
 
 const AmountDisplay = ({
   title,
@@ -45,7 +46,7 @@ const TransactionOverview = ({ transactions }: { transactions: (Transaction | un
   }, [transactions])
 
   return (
-    <div className="sticky top-0 z-10 bg-[#242427] px-10 py-5">
+    <div className="sticky top-0 z-10 bg-[#242427] px-10 pt-5">
       <div className="flex justify-between gap-2">
         <AmountDisplay
           amount={totalSaved}
@@ -55,6 +56,7 @@ const TransactionOverview = ({ transactions }: { transactions: (Transaction | un
         <AmountDisplay amount={totalSpent} title="Total Spent" color="red" />
         <AmountDisplay amount={nonPersonal} title="Shared Expense" color="red" />
       </div>
+      <AddTransactionButton />
     </div>
   )
 }

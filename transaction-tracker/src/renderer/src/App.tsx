@@ -1,9 +1,10 @@
-import AddTransactionModal from './components/AddTransactionModal'
+import UploadCsvModal from './components/UploadCsvModal'
 import { Content, RootLayout, Sidebar } from './components/AppLayout'
 import MonthPreviewList from './components/MonthPreviewList'
 import TransactionList from './components/TransactionList'
 import ActionButtonsRow from './components/buttons/ActionButtonsRow'
 import TrackerProvider from './providers/TrackerProvider'
+import AddTransactionModal from './components/AddTransactionModal'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <TransactionList />
         </Content>
       </RootLayout>
+      <UploadCsvModal />
       <AddTransactionModal />
     </TrackerProvider>
   )

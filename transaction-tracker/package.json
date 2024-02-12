@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "Zachary Buce",
   "homepage": "https://electron-vite.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zacharybuce/transaction-tracker"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -25,7 +29,8 @@
     "@electron-toolkit/utils": "^3.0.0",
     "csv-parser": "^3.0.0",
     "dexie": "^3.2.4",
-    "dexie-react-hooks": "^1.1.7"
+    "dexie-react-hooks": "^1.1.7",
+    "electron-updater": "^6.1.7"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
